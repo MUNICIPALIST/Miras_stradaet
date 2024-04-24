@@ -22,7 +22,7 @@ public class dataBase {
 
             connection.close();
 
-
+// just for test
         } catch (SQLException e) {
             System.out.println("Error connecting to the database");
             e.printStackTrace();
