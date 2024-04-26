@@ -1,143 +1,77 @@
 package com.example.game_endterm_final;
 
-import java.io.IOException;
-import java.net.ServerSocket;
-import java.net.URL;
-import java.nio.charset.CharsetEncoder;
-import java.util.ResourceBundle;
-
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.ScrollBar;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
+import java.net.URL;
+import java.util.*;
+import java.util.concurrent.*;
+import java.util.ResourceBundle;
 
-
-public abstract class Main implements Initializable {
+public class Main implements Initializable {
 
     @FXML
-    private Button button_send;
-    @FXML
-    private TextField tf_message;
-    @FXML
-    private VBox vbox_message;
-    @FXML
-    private ScrollPane sp_main;
+    private Button button1, button2, button3, button4, button5, button6, button7, button8, button9;
 
-    private Server server;
+    @FXML
+    private Text winnerText;
+
+    @FXML
+    private Text xWinsCounter, oWinsCounter;
+
+    private GameBoard gameBoard;
+    private List<Player> players;
+    private Player currentPlayer;
 
     @Override
-    public void initialize(URL location, ResourceBundle resources ) {
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        players = new ArrayList<>();
+        Player playerX = new HumanPlayer("Player X", "X");
+        Player playerO = new AIPlayer("Player O", "O"); // AIPlayer вместо HumanPlayer
+        players.add(playerX);
+        players.add(playerO);
 
-        try {
-            server new Server(new ServerSocket(1234))
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("Error creating server.");
-        }
+        currentPlayer = players.get(0);
 
-        vbox_message.heightProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                sp_main.setVvalue((Double) newValue);
+        gameBoard = new GameBoard(button1, button2, button3, button4, button5, button6, button7, button8, button9);
+
+        gameBoard.getButtons().forEach(button -> {
+            setupButton(button);
+            button.setFocusTraversable(false);
+        });
+    }
+
+    @FXML
+    void restartGame(ActionEvent event) {
+        gameBoard.resetBoard();
+        winnerText.setText("Tic-Tac-Toe");
+    }
+
+    private void setupButton(Button button) {
+        button.setOnMouseClicked(mouseEvent -> {
+            currentPlayer.play(gameBoard, button); // Асинхронное выполнение для AIPlayer
+
+            if (gameBoard.checkWin(currentPlayer.getSymbol())) {
+                currentPlayer.getStats().incrementTotalWins(); // Обновление статистики
+                currentPlayer.getStats().incrementTotalGames(); // Обновление общей статистики
+
+                if (currentPlayer.getSymbol().equals("X")) {
+                    xWinsCounter.setText(String.valueOf(players.get(0).getStats().getTotalWins()));
+                } else {
+                    oWinsCounter.setText(String.valueOf(players.get(1).getStats().getTotalWins()));
+                }
+
+                gameBoard.getButtons().forEach(b -> b.setDisable(true));
+            } else {
+                switchPlayer();
             }
         });
-
-        server.receiveMessageFromClient(vbox_message);
-
-        button_send.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                String messageToSend = tf_message.getText();
-                if (!messageToSend.isEmpty()) {
-                    HBox hBox = new HBox();
-
-                }
-            }
-        }
-
-
     }
 
-
-
-
-
-
-
-
-    @FXML
-    private ResourceBundle resources;
-
-    @FXML
-    private URL location;
-
-    private char nowSym = 'x';
-
-    private char gameField[][] = new char[3][3];
-
-    private boolean isGame = true;
-
-    @FXML
-    void btnClick(ActionEvent event) {
-
-        if(!isGame) return;
-
-        Button btn = (Button)event.getSource();
-
-        int rowIndex = GridPane.getRowIndex(btn) == null ? 0 : GridPane.getRowIndex(btn);
-        int columnIndex = GridPane.getRowIndex(btn) == null ? 0 : GridPane.getRowIndex(btn);;
-
-        gameField[rowIndex][columnIndex] = nowSym;
-
-        btn.setText(String.valueOf(nowSym));
-
-        if (gameField[0][0] == gameField[0][1] && gameField[0][0] == gameField[0][2] && (gameField[0][0] == 'x' || gameField[0][0] == '0'))  {
-            isGame = false;
-        }
-        else if (gameField[1][0] == gameField[1][1] && gameField[1][0] == gameField[1][2] && (gameField[1][0] == 'x' || gameField[1][0] == '0'))  {
-            isGame = false;
-        }
-        else if (gameField[2][0] == gameField[2][1] && gameField[2][0] == gameField[1][2] && (gameField[2][0] == 'x' || gameField[2][0] == '0'))  {
-            isGame = false;
-        }
-        else if (gameField[0][0] == gameField[1][0] && gameField[0][0] == gameField[2][0] && (gameField[0][0] == 'x' || gameField[0][0] == '0'))  {
-            isGame = false;
-        }
-        else if (gameField[0][1] == gameField[1][1] && gameField[0][1] == gameField[2][1] && (gameField[0][1] == 'x' || gameField[0][1] == '0'))  {
-            isGame = false;
-        }
-        else if (gameField[0][2] == gameField[1][2] && gameField[0][2] == gameField[2][2] && (gameField[0][2] == 'x' || gameField[0][2] == '0'))  {
-            isGame = false;
-        }
-        else if (gameField[0][0] == gameField[1][1] && gameField[0][0] == gameField[2][2] && (gameField[0][0] == 'x' || gameField[0][0] == '0'))  {
-            isGame = false;
-        }
-        else if (gameField[2][2] == gameField[1][1] && gameField[2][2] == gameField[0][2] && (gameField[2][2] == 'x' || gameField[2][2] == '0'))  {
-            isGame = false;
-        }
-
-
-
-        nowSym = nowSym == 'x' ? '0' : 'x';
-
-
-
+    private void switchPlayer() {
+        currentPlayer = (currentPlayer == players.get(0)) ? players.get(1) : players.get(0);
     }
-
-    @FXML
-    void initialize() {
-
-    }
-
-
-
 }
