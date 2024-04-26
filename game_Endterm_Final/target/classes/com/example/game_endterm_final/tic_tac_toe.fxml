@@ -13,7 +13,7 @@
 <AnchorPane fx:id="ap_main" prefHeight="926.0" prefWidth="1027.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.game_endterm_final.Main">
 
    <children>
-      <GridPane layoutX="80.0" layoutY="384.0" prefHeight="400.0" prefWidth="400.0">
+      <GridPane layoutX="155.0" layoutY="135.0" prefHeight="643.0" prefWidth="465.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -25,64 +25,64 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button mnemonicParsing="false" onAction="#btnClick" prefHeight="134.0" prefWidth="134.0" textFill="#e064ff">
+            <Button mnemonicParsing="false" onAction="#btnClick" prefHeight="215.0" prefWidth="239.0" textFill="#e064ff">
                <font>
                   <Font name="Adelle Sans Devanagari Heavy" size="51.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" onAction="#btnClick" prefHeight="134.0" prefWidth="134.0" textFill="#e064ff" GridPane.columnIndex="1">
+            <Button mnemonicParsing="false" onAction="#btnClick" prefHeight="215.0" prefWidth="200.0" textFill="#e064ff" GridPane.columnIndex="1">
                <font>
                   <Font name="Adelle Sans Devanagari Heavy" size="51.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" onAction="#btnClick" prefHeight="134.0" prefWidth="134.0" textFill="#e064ff" GridPane.columnIndex="2">
+            <Button mnemonicParsing="false" onAction="#btnClick" prefHeight="216.0" prefWidth="155.0" textFill="#e064ff" GridPane.columnIndex="2">
                <font>
                   <Font name="Adelle Sans Devanagari Heavy" size="51.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" onAction="#btnClick" prefHeight="134.0" prefWidth="134.0" textFill="#e064ff" GridPane.rowIndex="1">
+            <Button mnemonicParsing="false" onAction="#btnClick" prefHeight="214.0" prefWidth="255.0" textFill="#e064ff" GridPane.rowIndex="1">
                <font>
                   <Font name="Adelle Sans Devanagari Heavy" size="51.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" onAction="#btnClick" prefHeight="134.0" prefWidth="134.0" textFill="#e064ff" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <Button mnemonicParsing="false" onAction="#btnClick" prefHeight="214.0" prefWidth="207.0" textFill="#e064ff" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <font>
                   <Font name="Adelle Sans Devanagari Heavy" size="51.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" onAction="#btnClick" prefHeight="134.0" prefWidth="134.0" textFill="#e064ff" GridPane.columnIndex="2" GridPane.rowIndex="1">
+            <Button mnemonicParsing="false" onAction="#btnClick" prefHeight="214.0" prefWidth="243.0" textFill="#e064ff" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <font>
                   <Font name="Adelle Sans Devanagari Heavy" size="51.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" onAction="#btnClick" prefHeight="134.0" prefWidth="134.0" textFill="#e064ff" GridPane.rowIndex="2">
+            <Button mnemonicParsing="false" onAction="#btnClick" prefHeight="222.0" prefWidth="155.0" textFill="#e064ff" GridPane.rowIndex="2">
                <font>
                   <Font name="Adelle Sans Devanagari Heavy" size="51.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" onAction="#btnClick" prefHeight="134.0" prefWidth="134.0" textFill="#e064ff" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <Button mnemonicParsing="false" onAction="#btnClick" prefHeight="214.0" prefWidth="195.0" textFill="#e064ff" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <font>
                   <Font name="Adelle Sans Devanagari Heavy" size="51.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" onAction="#btnClick" prefHeight="134.0" prefWidth="134.0" textFill="#e064ff" GridPane.columnIndex="2" GridPane.rowIndex="2">
+            <Button mnemonicParsing="false" onAction="#btnClick" prefHeight="245.0" prefWidth="155.0" textFill="#e064ff" GridPane.columnIndex="2" GridPane.rowIndex="2">
                <font>
                   <Font name="Adelle Sans Devanagari Heavy" size="51.0" />
                </font>
             </Button>
          </children>
       </GridPane>
-      <ScrollPane fx:id="sp_main" fitToWidth="true" layoutX="553.0" layoutY="131.0" prefHeight="770.0" prefWidth="442.0">
+      <ScrollPane fx:id="sp_main" fitToWidth="true" layoutX="771.0" layoutY="141.0" prefHeight="611.0" prefWidth="257.0">
          <content>
 <!--            <VBox fx:id="vbox_message" prefHeight="248" prefWidth="412" />-->
          </content>
-         <Label layoutX="114" layoutY="26" text="Chat">
+         <Label layoutX="114" layoutY="26" text="Miras_stradaet">
                 <font>
                    <Font name="Arial Rounded MT Bold" size="23" />
                 </font>
          </Label>
       </ScrollPane>
-      <TextField fx:id="tf_message" layoutX="586.0" layoutY="874.0" prefHeight="26" prefWidth="361" />
-      <Button fx:id="button_send" layoutX="975.0" layoutY="861.0" text="Send" />
+      <TextField fx:id="tf_message" layoutX="772.0" layoutY="752.0" prefHeight="26" prefWidth="257.0" />
+      <Button fx:id="button_send" layoutX="974.0" layoutY="749.0" prefHeight="32.0" prefWidth="54.0" text="Send" />
    </children>
 </AnchorPane>
