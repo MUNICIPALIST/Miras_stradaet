@@ -5,7 +5,7 @@ import java.net.Socket;
 import javafx.application.Platform;
 import javafx.scene.control.TextArea;
 
-
+// Клиент для игры в крестики-нолики с чатом
 public class TicTacToeClient {
 
     private final String serverAddress;
@@ -17,13 +17,7 @@ public class TicTacToeClient {
 
     public TicTacToeClient(String serverAddress, int serverPort) {
         this.serverAddress = serverAddress;
-        this.serverPort = serverPort;
-
-
-
-
-
-
+        this.serverPort = 12345; // Порт сервера
     }
 
     public void connect(TextArea chatArea) throws IOException {
@@ -32,25 +26,29 @@ public class TicTacToeClient {
         in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
 
+        // Вынесем обновление чата в отдельный метод, чтобы избежать ошибки с лямбда-выражением
         new Thread(() -> {
             try {
-                String serverMessage;
-                while ((serverMessage = in.readLine()) != null) { // Чтение сообщений от сервера
-                    String finalServerMessage = serverMessage;
-                    Platform.runLater(() -> chatArea.appendText(finalServerMessage + "\n")); // Обновление чата
+                while (true) {
+                    String serverMessage = in.readLine(); // Получение сообщения
+                    Platform.runLater(() -> updateChat(serverMessage)); // Вызов метода для обновления чата
                 }
             } catch (IOException e) {
                 System.out.println("Error receiving message: " + e.getMessage());
             } finally {
-                closeResources(); // Закрытие ресурсов
+                closeResources(); // Закрытие ресурсов при завершении
             }
         }).start(); // Запуск потока для обработки входящих данных
+    }
+
+    private void updateChat(String message) {
+        chatArea.appendText(message + "\n"); // Обновление чата
     }
 
     public void sendMessage(String message) {
         try {
             out.write(message + "\n"); // Отправка сообщения на сервер
-            out.flush();
+            out.flush(); // Принудительное отправление
         } catch (IOException e) {
             System.out.println("Error sending message: " + e.getMessage());
         }
@@ -62,9 +60,9 @@ public class TicTacToeClient {
 
     private void closeResources() {
         try {
-            in.close();
-            out.close();
-            socket.close();
+            if (in != null) in.close();
+            if (out != null) out.close();
+            if (socket != null) socket.close();
         } catch (IOException e) {
             System.out.println("Error closing resources: " + e.getMessage());
         }

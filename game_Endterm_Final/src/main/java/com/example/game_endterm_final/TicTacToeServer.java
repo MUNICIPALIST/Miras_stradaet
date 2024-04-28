@@ -7,8 +7,6 @@ import java.util.*;
 // Сервер для игры в крестики-нолики с чатом
 public class TicTacToeServer {
 
-
-
     private final ServerSocket serverSocket;
     private final List<GameSession> gameSessions; // Список игровых сессий
 
@@ -20,19 +18,19 @@ public class TicTacToeServer {
     public void start() {
         while (true) {
             try {
-                Socket player1 = serverSocket.accept(); // Принимаем первый клиент
-                Socket player2 = serverSocket.accept(); // Принимаем второй клиент
+                Socket player1 = serverSocket.accept(); // Первый клиент
+                Socket player2 = serverSocket.accept(); // Второй клиент
 
-                GameSession gameSession = new GameSession(player1, player2); // Создаем игровую сессию
+                GameSession gameSession = new GameSession(player1, player2); // Игровая сессия
                 gameSessions.add(gameSession);
-                new Thread(gameSession).start(); // Запускаем игровую сессию в отдельном потоке
+                new Thread(gameSession).start(); // Запуск игровой сессии в отдельном потоке
             } catch (IOException e) {
                 System.out.println("Error accepting client: " + e.getMessage());
             }
         }
     }
 
-    // Игровая сессия для двух игроков с чатом
+    // Класс для игровой сессии между двумя игроками с чатом
     private static class GameSession implements Runnable {
         private final Socket player1;
         private final Socket player2;
@@ -55,17 +53,17 @@ public class TicTacToeServer {
             try {
                 while (true) {
                     String messageFromPlayer1 = in1.readLine(); // Чтение сообщения от первого игрока
-                    out2.write(messageFromPlayer1 + "\n"); // Отправка второму игроку
+                    out2.write(messageFromPlayer1 + "\n"); // Передача второму игроку
                     out2.flush();
 
                     String messageFromPlayer2 = in2.readLine(); // Чтение сообщения от второго игрока
-                    out1.write(messageFromPlayer2 + "\n"); // Отправка первому игроку
+                    out1.write(messageFromPlayer2 + "\n"); // Передача первому игроку
                     out1.flush();
                 }
             } catch (IOException e) {
                 System.out.println("Game session ended: " + e.getMessage());
             } finally {
-                closeResources(); // Закрытие ресурсов
+                closeResources(); // Закрытие ресурсов при завершении сессии
             }
         }
 
