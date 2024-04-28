@@ -3,75 +3,52 @@ package com.example.game_endterm_final;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.text.Text;
-import javafx.stage.Stage;
+import javafx.scene.control.*;
+
+import java.io.IOException;
 import java.net.URL;
-import java.util.*;
-import java.util.concurrent.*;
 import java.util.ResourceBundle;
 
+// Контроллер игры с чатом
 public class Main implements Initializable {
 
     @FXML
-    private Button button1, button2, button3, button4, button5, button6, button7, button8, button9;
-
+    private TextArea chatArea; // Поле для чата
     @FXML
-    private Text winnerText;
-
+    private TextField chatInput; // Ввод для чата
     @FXML
-    private Text xWinsCounter, oWinsCounter;
+    private Button sendButton; // Кнопка отправки
 
-    private GameBoard gameBoard;
-    private List<Player> players;
-    private Player currentPlayer;
+    private TicTacToeClient client; // Клиент для игры и чата
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        players = new ArrayList<>();
-        Player playerX = new HumanPlayer("Player X", "X");
-        Player playerO = new AIPlayer("Player O", "O"); // AIPlayer вместо HumanPlayer
-        players.add(playerX);
-        players.add(playerO);
+        client = new TicTacToeClient("localhost", 12345); // Подключение к серверу
 
-        currentPlayer = players.get(0);
+        try {
+            client.connect(chatArea); // Подключение к чату
+        } catch (IOException e) {
+            chatArea.appendText("Error connecting to server: " + e.getMessage());
+        }
 
-        gameBoard = new GameBoard(button1, button2, button3, button4, button5, button6, button7, button8, button9);
+        sendButton.setOnAction(event -> sendMessage()); // Обработка нажатия кнопки отправки
+    }
 
-        gameBoard.getButtons().forEach(button -> {
-            setupButton(button);
-            button.setFocusTraversable(false);
-        });
+    private void sendMessage() {
+        String message = chatInput.getText().trim(); // Получение текста из ввода
+        if (!message.isEmpty()) {
+            client.sendMessage("Player: " + message); // Отправка сообщения
+            chatInput.clear(); // Очистка поля ввода
+        }
+    }
+
+    @FXML
+    void disconnectChat(ActionEvent event) {
+        client.disconnect(); // Отключение от чата
     }
 
     @FXML
     void restartGame(ActionEvent event) {
-        gameBoard.resetBoard();
-        winnerText.setText("Tic-Tac-Toe");
-    }
-
-    private void setupButton(Button button) {
-        button.setOnMouseClicked(mouseEvent -> {
-            currentPlayer.play(gameBoard, button); // Асинхронное выполнение для AIPlayer
-
-            if (gameBoard.checkWin(currentPlayer.getSymbol())) {
-                currentPlayer.getStats().incrementTotalWins(); // Обновление статистики
-                currentPlayer.getStats().incrementTotalGames(); // Обновление общей статистики
-
-                if (currentPlayer.getSymbol().equals("X")) {
-                    xWinsCounter.setText(String.valueOf(players.get(0).getStats().getTotalWins()));
-                } else {
-                    oWinsCounter.setText(String.valueOf(players.get(1).getStats().getTotalWins()));
-                }
-
-                gameBoard.getButtons().forEach(b -> b.setDisable(true));
-            } else {
-                switchPlayer();
-            }
-        });
-    }
-
-    private void switchPlayer() {
-        currentPlayer = (currentPlayer == players.get(0)) ? players.get(1) : players.get(0);
+        // Логика перезапуска игры
     }
 }
