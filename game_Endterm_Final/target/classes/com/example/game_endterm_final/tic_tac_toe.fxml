@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.FlowPane?>
+<<<<<<< HEAD
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
@@ -20,10 +22,20 @@
         xmlns="http://javafx.com/javafx/21"
         xmlns:fx="http://javafx.com/fxml/1"
         fx:controller="com.example.game_endterm_final.Main">
+=======
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="727.0" prefWidth="1148.0" style="-fx-background-color: #C5EDFF;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.game_endterm_final.Main">
+>>>>>>> ef9f7b1d958188ba2d91978922d748fc661376e8
 
     <children>
 
         <!-- Игровая доска -->
+<<<<<<< HEAD
         <FlowPane
                 layoutX="369.0"
                 layoutY="264.0"
@@ -134,6 +146,157 @@
 
     </children>
 
+=======
+        <FlowPane layoutX="290.0" layoutY="233.0" prefHeight="225.0" prefWidth="225.0" style="-fx-background-color: #F39C63;">
+            <children>
+                <!-- Кнопки для игры -->
+                <Button fx:id="button1" mnemonicParsing="false" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: #e10000;" />
+                <Button fx:id="button2" mnemonicParsing="false" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: #ffffff;" />
+                <Button fx:id="button4" mnemonicParsing="false" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: #e10000;" />
+                <Button fx:id="button5" mnemonicParsing="false" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: #ffffff;" />
+                <Button fx:id="button6" mnemonicParsing="false" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: #e10000;" />
+                <Button fx:id="button7" mnemonicParsing="false" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: #ffffff;" />
+                <Button fx:id="button8" mnemonicParsing="false" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: #e10000;" />
+                <Button fx:id="button9" mnemonicParsing="false" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: #ffffff;" />
+                <Button fx:id="button3" mnemonicParsing="false" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: #e10000;" />
+            </children>
+        </FlowPane>
+
+        <!-- Элементы для чата -->
+        <TextArea fx:id="chatArea" editable="false" layoutX="574.0" layoutY="206.0" prefHeight="297.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF;">
+         <cursor>
+            <Cursor fx:constant="DEFAULT" />
+         </cursor></TextArea>
+
+        <TextField fx:id="chatInput" layoutX="574.0" layoutY="502.0" prefWidth="300.0" style="-fx-background-color: #e1f3ff;">
+         <cursor>
+            <Cursor fx:constant="DEFAULT" />
+         </cursor></TextField>
+
+        <Button fx:id="sendButton" layoutX="817.0" layoutY="502.0" prefHeight="30.0" prefWidth="57.0" style="-fx-background-color: #f28c85;" text="Send">
+         <cursor>
+            <Cursor fx:constant="DEFAULT" />
+         </cursor></Button>
+      <AnchorPane prefHeight="727.0" prefWidth="30.0" />
+      <AnchorPane prefHeight="727.0" prefWidth="40.0" style="-fx-background-color: #4682B4;" />
+      <AnchorPane layoutX="1108.0" prefHeight="727.0" prefWidth="40.0" style="-fx-background-color: #4682B4;" />
+      <AnchorPane layoutX="40.0" layoutY="-1.0" prefHeight="30.0" prefWidth="1070.0" style="-fx-background-color: #4682B4;" />
+      <AnchorPane layoutX="39.0" layoutY="697.0" prefHeight="30.0" prefWidth="1070.0" style="-fx-background-color: #4682B4;" />
+      <AnchorPane layoutX="40.0" layoutY="24.0" prefHeight="673.0" prefWidth="40.0" style="-fx-background-color: #5A9FCF;" />
+      <AnchorPane layoutX="1062.0" layoutY="24.0" prefHeight="673.0" prefWidth="46.0" style="-fx-background-color: #5A9FCF;" />
+      <AnchorPane layoutX="43.0" layoutY="23.0" prefHeight="52.0" prefWidth="1064.0" style="-fx-background-color: #5A9FCF;">
+         <children>
+      
+              <!-- Информационные текстовые поля -->
+              <Text fx:id="winnerText" fill="#7cf516" layoutX="355.0" layoutY="45.0" text="Tic-Tac-Toe" textAlignment="CENTER" wrappingWidth="303.9443359375">
+                  <font>
+                      <Font size="39.0" />
+                  </font>
+              </Text>
+         </children></AnchorPane>
+      <AnchorPane layoutX="80.0" layoutY="645.0" prefHeight="52.0" prefWidth="993.0" style="-fx-background-color: #5A9FCF;" />
+      <AnchorPane layoutX="80.0" layoutY="75.0" prefHeight="576.0" prefWidth="40.0" style="-fx-background-color: #73B4E3;" />
+      <AnchorPane layoutX="1027.0" layoutY="76.0" prefHeight="576.0" prefWidth="40.0" style="-fx-background-color: #73B4E3;" />
+      <AnchorPane layoutX="120.0" layoutY="75.0" prefHeight="33.0" prefWidth="942.0" style="-fx-background-color: #73B4E3;" />
+      <AnchorPane layoutX="80.0" layoutY="619.0" prefHeight="33.0" prefWidth="948.0" style="-fx-background-color: #73B4E3;" />
+      <AnchorPane layoutX="120.0" layoutY="586.0" prefHeight="33.0" prefWidth="908.0" style="-fx-background-color: #8AC9F6;" />
+      <AnchorPane layoutX="120.0" layoutY="108.0" prefHeight="510.0" prefWidth="46.0" style="-fx-background-color: #8AC9F6;" />
+      <AnchorPane layoutX="982.0" layoutY="108.0" prefHeight="510.0" prefWidth="46.0" style="-fx-background-color: #8AC9F6;" />
+      <AnchorPane layoutX="120.0" layoutY="108.0" prefHeight="33.0" prefWidth="908.0" style="-fx-background-color: #8AC9F6;">
+         <children>
+      
+                          <Text layoutX="195.0" layoutY="25.0" smooth="false" text="Player X Wins" underline="true">
+                  <font>
+                      <Font size="25.0" />
+                  </font>
+               <cursor>
+                  <Cursor fx:constant="DEFAULT" />
+               </cursor>
+               <fill>
+                  <LinearGradient endX="1.0" endY="1.0" startX="0.33175355450236954" startY="1.0">
+                     <stops>
+                        <Stop>
+                           <color>
+                              <Color green="1.0" blue="0.13333334028720856" />
+                           </color>
+                        </Stop>
+                        <Stop offset="1.0">
+                           <color>
+                              <Color red="1.0" green="1.0" blue="1.0" />
+                           </color>
+                        </Stop>
+                     </stops>
+                  </LinearGradient>
+               </fill>
+              </Text>
+      
+                    <Text layoutX="522.0" layoutY="27.0" text="Player O Wins" underline="true">
+                  <font>
+                      <Font size="25.0" />
+                  </font>
+               <fill>
+                  <LinearGradient endX="1.0" endY="1.0" startX="0.33175355450236954" startY="1.0">
+                     <stops>
+                        <Stop>
+                           <color>
+                              <Color red="1.0" green="0.44228395819664" blue="0.35648149251937866" />
+                           </color>
+                        </Stop>
+                        <Stop offset="1.0">
+                           <color>
+                              <Color red="1.0" green="1.0" blue="1.0" />
+                           </color>
+                        </Stop>
+                     </stops>
+                  </LinearGradient>
+               </fill>
+              </Text>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="167.0" layoutY="555.0" prefHeight="35.0" prefWidth="820.0" style="-fx-background-color: #A3DEFF;" />
+      <AnchorPane layoutX="164.0" layoutY="141.0" prefHeight="26.0" prefWidth="820.0" style="-fx-background-color: #A3DEFF;">
+         <children>
+      
+              <Text fx:id="oWinsCounter" fill="#fcfffb" layoutX="228.0" layoutY="29.0" text="0">
+                  <font>
+                      <Font size="25.0" />
+                  </font>
+              </Text>
+      
+              <Text fill="#fffafa" layoutX="551.0" layoutY="29.0" text="0" fx:id="xWinsCounter">
+                  <font>
+                      <Font size="25.0" />
+                  </font>
+               <cursor>
+                  <Cursor fx:constant="DEFAULT" />
+               </cursor>
+              </Text>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="164.0" layoutY="143.0" prefHeight="448.0" prefWidth="40.0" style="-fx-background-color: #A3DEFF;" />
+      <AnchorPane layoutX="946.0" layoutY="143.0" prefHeight="412.0" prefWidth="40.0" style="-fx-background-color: #A3DEFF;">
+         <cursor>
+            <Cursor fx:constant="DEFAULT" />
+         </cursor>
+      </AnchorPane>
+
+              <Button layoutX="307.0" layoutY="500.0" mnemonicParsing="false" onAction="#restartGame" prefHeight="30.0" prefWidth="191.0" style="-fx-background-color: #f28c85;" text="Restart">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Button>
+      <AnchorPane layoutX="874.0" layoutY="206.0" prefHeight="323.0" prefWidth="6.0" style="-fx-background-color: #F7CAC9;" />
+      <AnchorPane layoutX="572.0" layoutY="206.0" prefHeight="323.0" prefWidth="6.0" style="-fx-background-color: #F7CAC9;" />
+      <AnchorPane layoutX="572.0" layoutY="204.0" prefHeight="5.0" prefWidth="310.0" style="-fx-background-color: #F7CAC9;" />
+      <AnchorPane layoutX="572.0" layoutY="528.0" prefHeight="5.0" prefWidth="310.0" style="-fx-background-color: #F7CAC9;" />
+      <AnchorPane layoutX="278.0" layoutY="224.0" prefHeight="12.0" prefWidth="238.0" style="-fx-background-color: #fbe1ff;" />
+      <AnchorPane layoutX="278.0" layoutY="229.0" prefHeight="233.0" prefWidth="13.0" style="-fx-background-color: #fbe1ff;" />
+      <AnchorPane layoutX="516.0" layoutY="223.0" prefHeight="244.0" prefWidth="13.0" style="-fx-background-color: #fbe1ff;" />
+      <AnchorPane layoutX="278.0" layoutY="456.0" prefHeight="12.0" prefWidth="238.0" style="-fx-background-color: #fbe1ff;" />
+
+    </children>
+
+>>>>>>> ef9f7b1d958188ba2d91978922d748fc661376e8
     <opaqueInsets>
         <Insets />
     </opaqueInsets>
