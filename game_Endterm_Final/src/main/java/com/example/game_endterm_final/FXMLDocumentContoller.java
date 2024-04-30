@@ -1,4 +1,6 @@
+package com.example.game_endterm_final;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
@@ -6,9 +8,16 @@ import javafx.scene.control.Hyperlink;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.control.Label;
+import javafx.event.ActionEvent;
 
-public class PleaseProvideControllerClassName {
+import javax.xml.transform.Result;
+import java.net.URL;
+import java.sql.*;
+import java.util.ResourceBundle;
 
+
+public class FXMLDocumentContoller implements Initializable{
     @FXML
     private Button changePass_backBtn;
 
@@ -96,4 +105,44 @@ public class PleaseProvideControllerClassName {
     @FXML
     private TextField signup_username;
 
+    private Connection connection;
+    private PreparedStatement prepar;
+    private Result result;
+    private Statement statement;
+
+    public Connection connectDB(){
+
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+                Connection connect =
+                        DriverManager.getConnection("");
+                return null;
+        }catch (Exception e) {e.printStackTrace();}
+        return null;
+    }
+
+    public void login(){
+
+
+
+    }
+
+    public void register(){
+
+       if(signup_email.getText().isEmpty()  ||  signup_username.getText() .isEmpty()
+           ||  signup_password.getText().isEmpty()  ||  signup_cPassword.getText().isEmpty()
+           ||  signup_selectQuestion.getSelectionModel().getSelectedItem()  ==  null
+           ||  signup_answer.getText().isEmpty()) {
+
+       }
+
+    }
+
+
+    @Override
+    public void initialize(URL url, ResourceBundle rd){
+
+    }
+
 }
+
