@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.text.Text;
+import javafx.application.Platform;
 
 import java.io.IOException;
 import java.net.URL;
@@ -25,11 +26,13 @@ public class Main implements Initializable {
     @FXML
     private Text winnerText; // Текст для победителя
 
+    private boolean isPlayerX = false;
+
     private TicTacToeClient client; // Клиент для игры и чата
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        client = new TicTacToeClient("localhost", 12345); // Подключение к серверу
+        client = new TicTacToeClient("localhost", 8888); // Подключение к серверу
 
         try {
             client.connect(chatArea); // Подключение к чату
@@ -66,7 +69,16 @@ public class Main implements Initializable {
 
     @FXML
     void restartGame(ActionEvent event) {
-        // Логика перезапуска игры
+        // Reset the game board
+        for (Button button : new Button[]{button1, button2, button3, button4, button5, button6, button7, button8, button9}) {
+            button.setText(""); // Clear text
+            button.setDisable(false); // Re-enable the button
+        }
+
+        // Inform the server about the game restart
+        client.sendMessage("Game restart");
+
+        // Clear any additional game state or data if needed
     }
 
     @FXML

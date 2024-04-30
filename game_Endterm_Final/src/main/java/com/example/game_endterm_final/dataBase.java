@@ -17,7 +17,7 @@ public class dataBase {
             ResultSet resultSet = statement.executeQuery("select * from users");
 
             while (resultSet.next()) {
-                System.out.println(resultSet.getInt(1)+ " " + resultSet.getString(2)+ " " + resultSet.getString(3));
+                System.out.println(resultSet.getInt(1) + " " + resultSet.getString(2) + " " + resultSet.getString(3));
             }
 
             connection.close();
