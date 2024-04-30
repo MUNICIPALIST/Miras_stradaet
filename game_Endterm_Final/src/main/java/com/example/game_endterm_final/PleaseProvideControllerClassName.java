@@ -1,3 +1,5 @@
+package com.example.game_endterm_final;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -95,5 +97,7 @@ public class PleaseProvideControllerClassName {
 
     @FXML
     private TextField signup_username;
+
+
 
 }
