@@ -1,4 +1,8 @@
 package com.example.game_endterm_final;
+<<<<<<< HEAD:game_Endterm_Final/src/main/java/com/example/game_endterm_final/FXMLDocumentContoller.java
+=======
+
+>>>>>>> de9f4dfd5629fb4647f0e3d343faf58996ef231a:game_Endterm_Final/src/main/java/com/example/game_endterm_final/PleaseProvideControllerClassName.java
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -105,6 +109,7 @@ public class FXMLDocumentContoller implements Initializable{
     @FXML
     private TextField signup_username;
 
+<<<<<<< HEAD:game_Endterm_Final/src/main/java/com/example/game_endterm_final/FXMLDocumentContoller.java
     private Connection connection;
     private PreparedStatement prepar;
     private Result result;
@@ -144,5 +149,9 @@ public class FXMLDocumentContoller implements Initializable{
 
     }
 
+=======
+
+
+>>>>>>> de9f4dfd5629fb4647f0e3d343faf58996ef231a:game_Endterm_Final/src/main/java/com/example/game_endterm_final/PleaseProvideControllerClassName.java
 }
 
