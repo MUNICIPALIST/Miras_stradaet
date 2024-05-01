@@ -16,6 +16,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.Label;
 import javafx.event.ActionEvent;
 import javafx.stage.Stage;
+import java.util.Calendar;
+import java.util.Date;
 
 import javax.xml.transform.Result;
 import java.net.URL;
@@ -125,7 +127,7 @@ public class FXMLDocumentContoller implements Initializable {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             Connection connect
-                    = DriverManager.getConnection("jdbc:mysql://localhost:8889/users", "root", "root");
+                    = DriverManager.getConnection("jdbc:mysql://localhost:8889/useraccount", "root", "root");
             return connect;
         } catch (Exception e) {
             e.printStackTrace();
@@ -161,7 +163,7 @@ public class FXMLDocumentContoller implements Initializable {
 
                     alert.successMessage("Successfully Login!");
 
-                    Parent root = FXMLLoader.load(getClass().getResource("Main"));
+                    Parent root = FXMLLoader.load(getClass().getResource("tic_tac_toe.fxml"));
                     Stage stage = new Stage();
                     Scene scene = new Scene(root);
 

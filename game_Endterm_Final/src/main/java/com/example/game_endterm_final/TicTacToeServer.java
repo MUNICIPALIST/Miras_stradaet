@@ -5,7 +5,7 @@ import java.net.*;
 import java.util.*;
 
 public class TicTacToeServer {
-    private static final int PORT = 8888;
+    private static final int PORT = 7777;
     private static List<PrintWriter> clientWriters = new ArrayList<>();
 
     public static void main(String[] args) {

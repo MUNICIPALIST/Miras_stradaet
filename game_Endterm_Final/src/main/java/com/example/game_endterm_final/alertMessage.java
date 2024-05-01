@@ -7,7 +7,7 @@ public class alertMessage {
 
         alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error Message");
-        alert.getHeaderText(null);
+        alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
     }
@@ -15,7 +15,7 @@ public class alertMessage {
 
         alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information Message");
-        alert.getHeaderText(null);
+        alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
     }
