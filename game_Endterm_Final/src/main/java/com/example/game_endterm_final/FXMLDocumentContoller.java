@@ -1,8 +1,7 @@
 package com.example.game_endterm_final;
-<<<<<<< HEAD:game_Endterm_Final/src/main/java/com/example/game_endterm_final/FXMLDocumentContoller.java
-=======
 
->>>>>>> de9f4dfd5629fb4647f0e3d343faf58996ef231a:game_Endterm_Final/src/main/java/com/example/game_endterm_final/PleaseProvideControllerClassName.java
+
+
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -22,6 +21,7 @@ import java.util.ResourceBundle;
 
 
 public class FXMLDocumentContoller implements Initializable{
+
     @FXML
     private Button changePass_backBtn;
 
@@ -109,20 +109,22 @@ public class FXMLDocumentContoller implements Initializable{
     @FXML
     private TextField signup_username;
 
-<<<<<<< HEAD:game_Endterm_Final/src/main/java/com/example/game_endterm_final/FXMLDocumentContoller.java
-    private Connection connection;
-    private PreparedStatement prepar;
-    private Result result;
+
+    private Connection connect;
+    private PreparedStatement prepare;
+    private ResultSet result;
     private Statement statement;
 
     public Connection connectDB(){
 
         try {
             Class.forName("com.mysql.jdbc.Driver");
-                Connection connect =
-                        DriverManager.getConnection("");
-                return null;
-        }catch (Exception e) {e.printStackTrace();}
+                Connection connect
+                       = DriverManager.getConnection("jdbc:mysql://localhost:8889/users", "root", "root");
+                return connect;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return null;
     }
 
@@ -134,24 +136,54 @@ public class FXMLDocumentContoller implements Initializable{
 
     public void register(){
 
+        alertMessage alert = new alertMessage();
+
        if(signup_email.getText().isEmpty()  ||  signup_username.getText() .isEmpty()
            ||  signup_password.getText().isEmpty()  ||  signup_cPassword.getText().isEmpty()
            ||  signup_selectQuestion.getSelectionModel().getSelectedItem()  ==  null
            ||  signup_answer.getText().isEmpty()) {
+           alert.errorMessage("All fields are necessary to be filled");
+       }else if(signup_password.getText()  ==  signup_cPassword.getText()) {
+           alert.errorMessage("Password does not match");
+       }else if (signup_password.getText().length() < 8) {
+           alert.errorMessage("Invalid Password, at least 8 characters needed");
+       }else{
 
+           String checkUsername = "SELECT * FROM users WHERE username = '"
+                   + signup_username.getText() + "'";
+           connect = connectDB();
+
+           try {
+               statement = connect.createStatement();
+               result = statement.executeQuery(checkUsername);
+
+               if(result.next()){
+                   alert.errorMessage(signup_username.getText() + " is already taken");
+               }else {
+                   String insertData = "INSERT INTO users "
+                           + "(email, username, password, question, answer) "
+                           + "VALUES(?,?,?,?,?)";
+
+                   prepare = connect.prepareStatement(insertData);
+                   prepare.setString(1, signup_email.getText());
+                   prepare.setString(2, signup_username.getText());
+                   prepare.setString(3, signup_password.getText());
+                   prepare.setString(4, (String) signup_selectQuestion.getSelectionModel() .getSelectedItem());
+                   prepare.setString(5, signup_answer.getText());
+
+                   prepare.executeUpdate();
+
+                   alert.successMessage("Registered Successfully!");
+               }
+           }catch (Exception e){e.printStackTrace();}
        }
-
     }
-
 
     @Override
     public void initialize(URL url, ResourceBundle rd){
 
     }
 
-=======
 
-
->>>>>>> de9f4dfd5629fb4647f0e3d343faf58996ef231a:game_Endterm_Final/src/main/java/com/example/game_endterm_final/PleaseProvideControllerClassName.java
 }
 
