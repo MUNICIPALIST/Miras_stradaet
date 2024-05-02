@@ -1,10 +1,10 @@
 package com.example.game_endterm_final.server_path;
 
 public interface TicTacToeConstants {
-    public static int PLAYER1 = 1;
-    public static int PLAYER2 = 2;
-    public static int PLAYER1_WON = 1;
-    public static int PLAYER2_WON = 2;
-    public static int DRAW = 3;
-    public static int CONTINUE = 4;
+    int PLAYER1 = 1;
+    int PLAYER2 = 2;
+    int PLAYER1_WON = 1;
+    int PLAYER2_WON = 2;
+    int DRAW = 3;
+    int CONTINUE = 4;
 }

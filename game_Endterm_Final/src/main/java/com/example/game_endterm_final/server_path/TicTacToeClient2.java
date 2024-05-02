@@ -34,6 +34,7 @@ public class TicTacToeClient2 extends Application {
     private boolean waiting = true;
     private String host = "localhost";
 
+
     @Override
     public void start(Stage stage){
         GridPane pane = new GridPane();

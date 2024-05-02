@@ -12,7 +12,8 @@ module com.example.game_endterm_final {
     requires com.almasb.fxgl.all;
     requires java.sql;
 
-    opens com.example.game_endterm_final to javafx.fxml;
+    opens com.example.game_endterm_final to javafx.fxml, javafx.graphics;
     exports com.example.game_endterm_final;
-    exports com.example.game_endterm_final.server_path to javafx.graphics;
+    exports com.example.game_endterm_final.server_path;
+    opens com.example.game_endterm_final.server_path to javafx.fxml, javafx.graphics;
 }

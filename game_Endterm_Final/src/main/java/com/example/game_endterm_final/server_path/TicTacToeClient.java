@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -17,7 +18,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 
-public class TicTacToeClient extends Application implements TicTacToeConstants{
+public class TicTacToeClient extends Application implements TicTacToeConstants {
     private boolean myTurn = false;
     private char myToken = ' ';
     private char otherToken = ' ';
@@ -31,6 +32,12 @@ public class TicTacToeClient extends Application implements TicTacToeConstants{
     private boolean continueToPlay = true;
     private boolean waiting = true;
     private String host = "localhost";
+
+
+
+    public TicTacToeClient() {
+        // здесь можно выполнить какую-то инициализацию, если необходимо
+    }
 
     @Override
     public void start(Stage stage){
@@ -142,6 +149,14 @@ public class TicTacToeClient extends Application implements TicTacToeConstants{
         int column = fromServer.readInt();
         Platform.runLater(() -> cell[row][column].setToken(otherToken));
     }
+
+    public void connect(TextArea chatArea) {
+    }
+
+    public void sendMessage(String s) {
+
+    }
+
     public class Cell extends Pane {
         private int row;
         private int column;
@@ -196,3 +211,4 @@ public class TicTacToeClient extends Application implements TicTacToeConstants{
         }
     }
 }
+

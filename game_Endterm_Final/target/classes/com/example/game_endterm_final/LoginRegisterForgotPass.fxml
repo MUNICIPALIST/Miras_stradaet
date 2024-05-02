@@ -16,7 +16,7 @@
    <children>
       <AnchorPane fx:id="main_form" prefHeight="200.0" prefWidth="221.0" styleClass="white-bg" stylesheets="@../../../../../design/style.css">
          <children>
-            <AnchorPane fx:id="login_form" layoutX="14.0" layoutY="14.0" prefHeight="759.0" prefWidth="420.0" visible="false">
+            <AnchorPane fx:id="login_form" layoutX="14.0" layoutY="14.0" prefHeight="759.0" prefWidth="420.0">
                <children>
                   <FontAwesomeIconView fill="#2a827b" glyphName="USER" layoutX="178.0" layoutY="146.0" size="90" text="" />
                   <Label layoutX="115.0" layoutY="159.0" text="Sing In Account" textFill="#187778">
@@ -93,7 +93,7 @@
                   <TextField fx:id="forgot_username" layoutX="50.0" layoutY="242.0" prefHeight="37.0" prefWidth="322.0" promptText="Username" />
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="changePass_form" layoutX="14.0" layoutY="14.0" prefHeight="759.0" prefWidth="420.0">
+            <AnchorPane fx:id="changePass_form" layoutX="14.0" layoutY="14.0" prefHeight="759.0" prefWidth="420.0" visible="false">
                <children>
                   <FontAwesomeIconView fill="#2a827b" glyphName="LOOK" layoutX="181.0" layoutY="145.0" size="90" text="" />
                   <Label layoutX="106.0" layoutY="158.0" text="Forget Password" textFill="#187778">
