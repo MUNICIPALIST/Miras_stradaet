@@ -19,9 +19,13 @@ public class JavaFX_MediaExample extends Application {
     @Override
     public void start(Stage primaryStage) {
         // Путь к видеофайлу
-        String videoPath = "C:\\Users\\Нурислам\\Desktop\\Miras_stradaet\\game_Endterm_Final\\src\\design\\Breath-of-the-Wild-The-Legend-of-Zelda.mp4";
+        String videoPath = "/Users/valtzmanmagnus/Desktop/GameProject_Java_Final/Miras_stradaet/game_Endterm_Final/src/design/Breath-of-the-Wild-The-Legend-of-Zelda.mp4";
         // Путь к аудиофайлу
-        String musicPath = "C:\\Users\\Нурислам\\Desktop\\Miras_stradaet\\game_Endterm_Final\\src\\design\\The Legend of Zelda_ Breath of the Wild OST — Sheikah Tower (www.lightaudio.ru).mp3";
+        String musicPath = "/Users/valtzmanmagnus/Desktop/GameProject_Java_Final/Miras_stradaet/game_Endterm_Final/src/design/Zelda.mp3";
+
+        // for me JANE
+        // String videoPath = "/Users/valtzmanmagnus/Desktop/GameProject_Java_Final/Miras_stradaet/game_Endterm_Final/src/design/Breath-of-the-Wild-The-Legend-of-Zelda.mp4";
+        // String musicPath = "/Users/valtzmanmagnus/Desktop/GameProject_Java_Final/Miras_stradaet/game_Endterm_Final/src/design/Zelda.mp3";
 
         // Проверяем, существуют ли файлы
         if (!Files.exists(Paths.get(videoPath)) || !Files.exists(Paths.get(musicPath))) {
