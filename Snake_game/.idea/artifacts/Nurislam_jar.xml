@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Nurislam:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Nurislam_jar</output-path>
+    <root id="archive" name="Nurislam.jar">
+      <element id="module-output" name="Snake_game" />
+    </root>
+  </artifact>
+</component>

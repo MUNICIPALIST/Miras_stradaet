@@ -28,13 +28,24 @@ public class JavaFX_MediaExample extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        // Заполняем списки путей
+        /*
+        // for Miras
         videoPaths.add("C:\\Users\\Нурислам\\Desktop\\Miras_stradaet\\game_Endterm_Final\\src\\design\\Pokemon-Emerald-Waterfall.mp4");
         videoPaths.add("C:\\Users\\Нурислам\\Desktop\\Miras_stradaet\\game_Endterm_Final\\src\\design\\Pokemon-Pinwheel-Forest.mp4");
         videoPaths.add("C:\\Users\\Нурислам\\Desktop\\Miras_stradaet\\game_Endterm_Final\\src\\design\\Breath-of-the-Wild-The-Legend-of-Zelda.mp4");
         videoPaths.add("C:\\Users\\Нурислам\\Desktop\\Miras_stradaet\\game_Endterm_Final\\src\\design\\Pokemon-Pinwheel-Forest.mp4");
         musicPaths.add("C:\\Users\\Нурислам\\Desktop\\Miras_stradaet\\game_Endterm_Final\\src\\design\\Theishter - Anime on Piano — Hai to Gensou no Grimgar OP - Knew Day (www.lightaudio.ru).mp3");
         musicPaths.add("C:\\Users\\Нурислам\\Desktop\\Miras_stradaet\\game_Endterm_Final\\src\\design\\Zelda.mp3");
+        */
+        // For Jane
+        videoPaths.add("/Users/valtzmanmagnus/Desktop/GameProject_Java_Final/Miras_stradaet/game_Endterm_Final/src/design/Pokemon-Emerald-Waterfall.mp4");
+        videoPaths.add("/Users/valtzmanmagnus/Desktop/GameProject_Java_Final/Miras_stradaet/game_Endterm_Final/src/design/Pokemon-Pinwheel-Forest.mp4");
+        videoPaths.add("/Users/valtzmanmagnus/Desktop/GameProject_Java_Final/Miras_stradaet/game_Endterm_Final/src/design/Breath-of-the-Wild-The-Legend-of-Zelda.mp4");
+        videoPaths.add("/Users/valtzmanmagnus/Desktop/GameProject_Java_Final/Miras_stradaet/game_Endterm_Final/src/design/Pokemon-Pinwheel-Forest.mp4");
+        musicPaths.add("/Users/valtzmanmagnus/Desktop/GameProject_Java_Final/Miras_stradaet/game_Endterm_Final/src/design/Theishter - Anime on Piano — Hai to Gensou no Grimgar OP - Knew Day (www.lightaudio.ru).mp3");
+        musicPaths.add("/Users/valtzmanmagnus/Desktop/GameProject_Java_Final/Miras_stradaet/game_Endterm_Final/src/design/Zelda.mp3");
+
+
 
         // Создаем MediaView для отображения видео
         mediaView = new MediaView();

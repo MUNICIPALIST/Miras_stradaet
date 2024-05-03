@@ -1,5 +1,8 @@
-package com.example.game_endterm_final.server_path;
+package com.example.game_endterm_final;
 
+import com.example.game_endterm_final.server_path.TicTacToeClient;
+import com.example.game_endterm_final.server_path.TicTacToeClient2;
+import com.example.game_endterm_final.server_path.TicTacToeServer;
 import javafx.application.Application;
 import javafx.stage.Stage;
 

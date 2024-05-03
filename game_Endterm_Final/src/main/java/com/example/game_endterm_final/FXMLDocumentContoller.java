@@ -163,7 +163,7 @@ public class FXMLDocumentContoller implements Initializable {
 
                     alert.successMessage("Successfully Login!");
 
-                    Parent root = FXMLLoader.load(getClass().getResource("tic_tac_toe.fxml"));
+                    Parent root = FXMLLoader.load(getClass().getResource("MirasStore.fxml"));
                     Stage stage = new Stage();
                     Scene scene = new Scene(root);
 

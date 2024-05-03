@@ -17,4 +17,5 @@ module com.example.game_endterm_final {
     opens com.example.game_endterm_final to javafx.fxml;
     exports com.example.game_endterm_final;
     exports com.example.game_endterm_final.server_path to javafx.graphics;
+    exports com.example.game_endterm_final.thirdGame to javafx.graphics;
 }
