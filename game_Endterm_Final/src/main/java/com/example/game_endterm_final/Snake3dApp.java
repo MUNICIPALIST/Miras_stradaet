@@ -36,14 +36,10 @@ public class Snake3dApp extends Application {
 
     private Scene createScene() {
 
-
-
-
         Cube cube = new Cube(Color.BLUE);
         snake.getChildren().add(cube);
 
-        food.setTranslateX(random.nextInt(10) - 5);
-
+        moveFood();
 
         root.getChildren().addAll(snake, food);
 
@@ -71,12 +67,35 @@ public class Snake3dApp extends Application {
          return  scene;
     }
 
+    private void moveFood() {
+        food.setTranslateX(random.nextInt(10) - 5);
+        food.setTranslateY(random.nextInt(10) - 5);
+        food.setTranslateZ(random.nextInt(10) - 5);
+    }
+
+    private void grow() {
+        moveFood();
+        Cube cube = new Cube(Color.BLUE);
+        cube.set(next.add(dir));
+
+        snake.getChildren().add(cube);
+    }
+
     private void onUpdate() {
         next = next.add(dir);
         Cube c = (Cube) snake.getChildren().remove(0);
         c.set(next);
         snake.getChildren().add(c);
 
+        boolean collision = snake.getChildren()
+                .stream()
+                .map(n -> (Cube) n)
+                .anyMatch(cube -> cube.isColliding(food));
+
+
+        if (collision) {
+            moveFood();
+        }
     }
 
     @Override
@@ -95,7 +114,7 @@ public class Snake3dApp extends Application {
                     break;
 
                 case A:
-                    dir = new Point3D(-1, 0, 10);
+                    dir = new Point3D(-1, 0, 1);
                     break;
 
                 case D:
@@ -129,6 +148,13 @@ public class Snake3dApp extends Application {
             setTranslateX(p.getX());
             setTranslateY(p.getY());
             setTranslateZ(p.getZ());
+        }
+
+
+        public boolean isColliding(Cube c) {
+            return getTranslateX() == c.getTranslateX() &&
+                    getTranslateY() == c.getTranslateY() &&
+                    getTranslateZ() == c.getTranslateZ();
         }
     }
 
