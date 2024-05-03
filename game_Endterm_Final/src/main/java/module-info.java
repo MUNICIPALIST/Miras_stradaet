@@ -12,6 +12,7 @@ module com.example.game_endterm_final {
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
     requires java.sql;
+    requires de.jensd.fx.glyphs.fontawesome;
 
     opens com.example.game_endterm_final to javafx.fxml;
     exports com.example.game_endterm_final;
