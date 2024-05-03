@@ -3,6 +3,9 @@ package com.example.game_endterm_final;
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
+import javafx.animation.FadeTransition;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -11,65 +14,80 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 
 public class JavaFX_MediaExample extends Application {
 
+    private List<String> videoPaths = new ArrayList<>();
+    private List<String> musicPaths = new ArrayList<>();
+    private int currentVideoIndex = 0;
+    private int currentMusicIndex = 0;
+    private MediaPlayer videoPlayer;
+    private MediaPlayer musicPlayer;
+    private MediaView mediaView;
+    private FadeTransition fadeTransition;
+
     @Override
     public void start(Stage primaryStage) {
-        // Путь к видеофайлу
-        String videoPath = "/Users/valtzmanmagnus/Desktop/GameProject_Java_Final/Miras_stradaet/game_Endterm_Final/src/design/Breath-of-the-Wild-The-Legend-of-Zelda.mp4";
-        // Путь к аудиофайлу
-        String musicPath = "/Users/valtzmanmagnus/Desktop/GameProject_Java_Final/Miras_stradaet/game_Endterm_Final/src/design/Zelda.mp3";
+        // Заполняем списки путей
+        videoPaths.add("C:\\Users\\Нурислам\\Desktop\\Miras_stradaet\\game_Endterm_Final\\src\\design\\Pokemon-Emerald-Waterfall.mp4");
+        videoPaths.add("C:\\Users\\Нурислам\\Desktop\\Miras_stradaet\\game_Endterm_Final\\src\\design\\Pokemon-Pinwheel-Forest.mp4");
+        videoPaths.add("C:\\Users\\Нурислам\\Desktop\\Miras_stradaet\\game_Endterm_Final\\src\\design\\Breath-of-the-Wild-The-Legend-of-Zelda.mp4");
+        videoPaths.add("C:\\Users\\Нурислам\\Desktop\\Miras_stradaet\\game_Endterm_Final\\src\\design\\Pokemon-Pinwheel-Forest.mp4");
+        musicPaths.add("C:\\Users\\Нурислам\\Desktop\\Miras_stradaet\\game_Endterm_Final\\src\\design\\Theishter - Anime on Piano — Hai to Gensou no Grimgar OP - Knew Day (www.lightaudio.ru).mp3");
+        musicPaths.add("C:\\Users\\Нурислам\\Desktop\\Miras_stradaet\\game_Endterm_Final\\src\\design\\Zelda.mp3");
 
-        // for me JANE
-        // String videoPath = "/Users/valtzmanmagnus/Desktop/GameProject_Java_Final/Miras_stradaet/game_Endterm_Final/src/design/Breath-of-the-Wild-The-Legend-of-Zelda.mp4";
-        // String musicPath = "/Users/valtzmanmagnus/Desktop/GameProject_Java_Final/Miras_stradaet/game_Endterm_Final/src/design/Zelda.mp3";
+        // Создаем MediaView для отображения видео
+        mediaView = new MediaView();
+        mediaView.setOpacity(0); // Изначально делаем MediaView невидимым
 
-        // Проверяем, существуют ли файлы
-        if (!Files.exists(Paths.get(videoPath)) || !Files.exists(Paths.get(musicPath))) {
-            System.out.println("Файл не найден: " + videoPath + " или " + musicPath);
-            return;
-        }
-
-        // Создаем медиа объекты
-        Media videoMedia = new Media(new File(videoPath).toURI().toString());
-        Media musicMedia = new Media(new File(musicPath).toURI().toString());
-
-        // Создаем MediaPlayer объекты
-        MediaPlayer videoPlayer = new MediaPlayer(videoMedia);
-        MediaPlayer musicPlayer = new MediaPlayer(musicMedia);
-
-        // Создаем MediaView для видео
-        MediaView mediaView = new MediaView(videoPlayer);
-
-        // Настройка воспроизведения видео
-        videoPlayer.setAutoPlay(true);
-        Timeline videoTimeline = new Timeline(new KeyFrame(Duration.seconds(3.9), event -> {
-            videoPlayer.seek(Duration.ZERO);
-            videoPlayer.play();
-        }));
-        videoTimeline.setCycleCount(Timeline.INDEFINITE);
-        videoTimeline.play();
-
-        // Настройка воспроизведения музыки
-        musicPlayer.setAutoPlay(true);
-        musicPlayer.setVolume(0.5); // Уменьшаем громкость музыки
-        Timeline musicTimeline = new Timeline(new KeyFrame(Duration.minutes(2.7), event -> {
-            musicPlayer.seek(Duration.ZERO);
-            musicPlayer.play();
-        }));
-        musicTimeline.setCycleCount(Timeline.INDEFINITE);
-        musicTimeline.play();
-
-        // Настройка сцены и добавление MediaView в сцену
-        Group root = new Group();
-        root.getChildren().add(mediaView);
+        // Настройка сцены
+        Group root = new Group(mediaView);
         Scene scene = new Scene(root, 1980, 1080);
         primaryStage.setScene(scene);
-        primaryStage.setTitle("Playing video and music");
+        primaryStage.setTitle("Media Player");
         primaryStage.show();
+
+        // Инициализация и запуск первого видео и музыки
+        loadAndPlayVideo(primaryStage, 0);
+        loadAndPlayMusic(0);
+    }
+
+    private void loadAndPlayVideo(Stage stage, int index) {
+        if (index >= videoPaths.size()) return; // Выход, если индекс вне диапазона
+        File videoFile = new File(videoPaths.get(index));
+        if (videoFile.exists()) {
+            Media media = new Media(videoFile.toURI().toString());
+            if (videoPlayer != null) videoPlayer.stop();
+            videoPlayer = new MediaPlayer(media);
+            mediaView.setMediaPlayer(videoPlayer);
+
+            // Настройка плавного перехода
+            setupFadeTransition();
+
+            videoPlayer.setAutoPlay(true);
+            videoPlayer.setOnEndOfMedia(() -> loadAndPlayVideo(stage, ++currentVideoIndex % videoPaths.size()));
+        }
+    }
+
+    private void setupFadeTransition() {
+        if (fadeTransition != null) fadeTransition.stop();
+        fadeTransition = new FadeTransition(Duration.seconds(1), mediaView);
+        fadeTransition.setFromValue(0);
+        fadeTransition.setToValue(1);
+        fadeTransition.play();
+    }
+
+    private void loadAndPlayMusic(int index) {
+        if (index >= musicPaths.size()) return; // Выход, если индекс вне диапазона
+        File musicFile = new File(musicPaths.get(index));
+        if (musicFile.exists()) {
+            Media media = new Media(musicFile.toURI().toString());
+            if (musicPlayer != null) musicPlayer.stop();
+            musicPlayer = new MediaPlayer(media);
+            musicPlayer.setAutoPlay(true);
+            musicPlayer.setVolume(0.5);
+            musicPlayer.setOnEndOfMedia(() -> loadAndPlayMusic(++currentMusicIndex % musicPaths.size()));
+        }
     }
 
     public static void main(String[] args) {

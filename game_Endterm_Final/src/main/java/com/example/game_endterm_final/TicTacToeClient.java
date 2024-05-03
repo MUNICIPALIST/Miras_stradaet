@@ -1,70 +1,85 @@
 package com.example.game_endterm_final;
 
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
 import java.io.*;
 import java.net.Socket;
 import javafx.application.Platform;
-import javafx.scene.control.TextArea;
 
-// Клиент для игры в крестики-нолики с чатом
-public class TicTacToeClient {
 
-    private final String serverAddress;
-    private final int serverPort;
+public class TicTacToeClient extends Application {
     private Socket socket;
-    private BufferedReader in;
-    private BufferedWriter out;
-    private TextArea chatArea; // Поле для чата
+    private DataInputStream input;
+    private DataOutputStream output;
+    private final String serverAddress = "localhost";
+    private final int serverPort = 12345;
+    private String playerType;
+    private Button[] buttons = new Button[9];
 
-    public TicTacToeClient(String serverAddress, int serverPort) {
-        this.serverAddress = serverAddress;
-        this.serverPort = 12345; // Порт сервера
-    }
+    @Override
+    public void start(Stage primaryStage) {
+        try {
+            socket = new Socket(serverAddress, serverPort);
+            input = new DataInputStream(socket.getInputStream());
+            output = new DataOutputStream(socket.getOutputStream());
 
-    public void connect(TextArea chatArea) throws IOException {
-        this.chatArea = chatArea;
-        socket = new Socket(serverAddress, serverPort); // Подключение к серверу
-        in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-        out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+            int player = input.readInt(); // Read player type from server
+            playerType = (player == 1) ? "X" : "O";
 
-        // Вынесем обновление чата в отдельный метод, чтобы избежать ошибки с лямбда-выражением
-        new Thread(() -> {
-            try {
-                while (true) {
-                    String serverMessage = in.readLine(); // Получение сообщения
-                    Platform.runLater(() -> updateChat(serverMessage)); // Вызов метода для обновления чата
-                }
-            } catch (IOException e) {
-                System.out.println("Error receiving message: " + e.getMessage());
-            } finally {
-                closeResources(); // Закрытие ресурсов при завершении
+            GridPane grid = new GridPane();
+            for (int i = 0; i < 9; i++) {
+                buttons[i] = new Button("-");
+                buttons[i].setMinSize(90, 90);
+                int finalI = i;
+                buttons[i].setOnAction(e -> {
+                    try {
+                        if (buttons[finalI].getText().equals("-")) {
+                            buttons[finalI].setText(playerType);
+                            output.writeInt(finalI);
+                        }
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+                });
+                grid.add(buttons[i], i % 3, i / 3);
             }
-        }).start(); // Запуск потока для обработки входящих данных
-    }
 
-    private void updateChat(String message) {
-        chatArea.appendText(message + "\n"); // Обновление чата
-    }
+            Scene scene = new Scene(grid, 300, 300);
+            primaryStage.setTitle("Tic Tac Toe: Player " + playerType);
+            primaryStage.setScene(scene);
+            primaryStage.show();
 
-    public void sendMessage(String message) {
-        try {
-            out.write(message + "\n"); // Отправка сообщения на сервер
-            out.flush(); // Принудительное отправление
-        } catch (IOException e) {
-            System.out.println("Error sending message: " + e.getMessage());
+            // Start a thread to listen for moves from the server
+            new Thread(() -> {
+                try {
+                    while (true) {
+                        int move = input.readInt();
+                        Platform.runLater(() -> buttons[move].setText(playerType.equals("X") ? "O" : "X"));
+                    }
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            }).start();
+        } catch (IOException ex) {
+            ex.printStackTrace();
         }
     }
 
-    public void disconnect() {
-        closeResources(); // Отключение от сервера
+    @Override
+    public void stop() {
+        try {
+            input.close();
+            output.close();
+            socket.close();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
 
-    private void closeResources() {
-        try {
-            if (in != null) in.close();
-            if (out != null) out.close();
-            if (socket != null) socket.close();
-        } catch (IOException e) {
-            System.out.println("Error closing resources: " + e.getMessage());
-        }
+    public static void main(String[] args) {
+        launch(args);
     }
 }

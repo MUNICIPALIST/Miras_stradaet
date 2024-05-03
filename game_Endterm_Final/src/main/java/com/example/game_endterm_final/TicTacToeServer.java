@@ -4,89 +4,89 @@ import java.io.*;
 import java.net.*;
 import java.util.*;
 
-// Сервер для игры в крестики-нолики с чатом
 public class TicTacToeServer {
-
-    private final ServerSocket serverSocket;
-    private final List<GameSession> gameSessions; // Список игровых сессий
+    private ServerSocket serverSocket;
+    private List<GameSession> sessions;
 
     public TicTacToeServer(int port) throws IOException {
         serverSocket = new ServerSocket(port);
-        gameSessions = new ArrayList<>();
+        sessions = new ArrayList<>();
     }
 
     public void start() {
-        while (true) {
-            try {
-                Socket player1 = serverSocket.accept(); // Первый клиент
-                Socket player2 = serverSocket.accept(); // Второй клиент
+        System.out.println("Tic Tac Toe Server is Running");
+        try {
+            while (true) {
+                Socket player1 = serverSocket.accept();
+                System.out.println("Player 1 has connected");
+                Socket player2 = serverSocket.accept();
+                System.out.println("Player 2 has connected");
 
-                GameSession gameSession = new GameSession(player1, player2); // Игровая сессия
-                gameSessions.add(gameSession);
-                new Thread(gameSession).start(); // Запуск игровой сессии в отдельном потоке
-            } catch (IOException e) {
-                System.out.println("Error accepting client: " + e.getMessage());
+                GameSession session = new GameSession(player1, player2);
+                sessions.add(session);
+                new Thread(session).start();
             }
+        } catch (IOException ex) {
+            ex.printStackTrace();
         }
     }
 
-    // Класс для игровой сессии между двумя игроками с чатом
     private static class GameSession implements Runnable {
-        private final Socket player1;
-        private final Socket player2;
-        private final BufferedReader in1;
-        private final BufferedWriter out1;
-        private final BufferedReader in2;
-        private final BufferedWriter out2;
+        private Socket player1;
+        private Socket player2;
+        private DataInputStream input1;
+        private DataOutputStream output1;
+        private DataInputStream input2;
+        private DataOutputStream output2;
 
-        public GameSession(Socket player1, Socket player2) throws IOException {
-            this.player1 = player1;
-            this.player2 = player2;
-            in1 = new BufferedReader(new InputStreamReader(player1.getInputStream()));
-            out1 = new BufferedWriter(new OutputStreamWriter(player1.getOutputStream()));
-            in2 = new BufferedReader(new InputStreamReader(player2.getInputStream()));
-            out2 = new BufferedWriter(new OutputStreamWriter(player2.getOutputStream()));
+        public GameSession(Socket p1, Socket p2) throws IOException {
+            player1 = p1;
+            player2 = p2;
+            input1 = new DataInputStream(player1.getInputStream());
+            output1 = new DataOutputStream(player1.getOutputStream());
+            input2 = new DataInputStream(player2.getInputStream());
+            output2 = new DataOutputStream(player2.getOutputStream());
         }
 
-        @Override
         public void run() {
             try {
-                while (true) {
-                    String messageFromPlayer1 = in1.readLine(); // Чтение сообщения от первого игрока
-                    out2.write(messageFromPlayer1 + "\n"); // Передача второму игроку
-                    out2.flush();
+                output1.writeInt(1); // Player 1 plays 'X'
+                output2.writeInt(2); // Player 2 plays 'O'
 
-                    String messageFromPlayer2 = in2.readLine(); // Чтение сообщения от второго игрока
-                    out1.write(messageFromPlayer2 + "\n"); // Передача первому игроку
-                    out1.flush();
+                boolean player1Turn = true;
+                while (true) {
+                    if (player1Turn) {
+                        int cell = input1.readInt();
+                        output2.writeInt(cell);
+                    } else {
+                        int cell = input2.readInt();
+                        output1.writeInt(cell);
+                    }
+                    player1Turn = !player1Turn;
                 }
             } catch (IOException e) {
-                System.out.println("Game session ended: " + e.getMessage());
+                System.out.println("Error in game session: " + e.getMessage());
             } finally {
-                closeResources(); // Закрытие ресурсов при завершении сессии
+                closeConnection();
             }
         }
 
-        private void closeResources() {
-            try {
-                in1.close();
-                out1.close();
-                in2.close();
-                out2.close();
-                player1.close();
-                player2.close();
-            } catch (IOException e) {
-                System.out.println("Error closing resources: " + e.getMessage());
-            }
+        private void closeConnection() {
+            try { if (input1 != null) input1.close(); } catch (IOException e) {}
+            try { if (output1 != null) output1.close(); } catch (IOException e) {}
+            try { if (input2 != null) input2.close(); } catch (IOException e) {}
+            try { if (output2 != null) output2.close(); } catch (IOException e) {}
+            try { if (player1 != null) player1.close(); } catch (IOException e) {}
+            try { if (player2 != null) player2.close(); } catch (IOException e) {}
         }
     }
 
     public static void main(String[] args) {
         try {
-            TicTacToeServer server = new TicTacToeServer(12345); // Запуск сервера на порту 12345
-            server.start(); // Старт сервера
+            TicTacToeServer server = new TicTacToeServer(12345);
+            server.start();
         } catch (IOException e) {
-            System.out.println("Error starting server: " + e.getMessage());
+            System.out.println("Unable to start server: " + e.getMessage());
         }
     }
 }
